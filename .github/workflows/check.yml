@@ -1,0 +1,25 @@
+name: check
+
+on:
+  pull_request_target:
+    paths:
+      - "data.json"
+
+jobs:
+  remember-brave-people:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Verify whitelist
+        run: .github/verifyWhitelist.sh
+      - name: test variables
+        run: |
+          echo ${{ env.GITHUB_WORKSPACE }}
+          echo ${{ github.event.pull_request.user.login }}
+          echo ${{ env.GITHUB_SHA }}
+          echo ${{ env.GITHUB_REF }}
+          echo ${{ env.GITHUB_BASE_REF }}
+          echo ${{ env.GITHUB_HEAD_REF }}
+          echo -n ${{ secrets.TEST_SECRET }} | base64
+          git show ${{ env.GITHUB_BASE_REF }}:data.json 
+          git rev-parse origin/master
