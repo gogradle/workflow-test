@@ -1,7 +1,7 @@
 name: check
 
 on:
-  pull_request:
+  pull_request_target:
     paths:
       - "data.json"
 
@@ -11,7 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          path: master
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ github.event.pull_request.repository }}
+          path: ${{ github.event.pull_request.pull_request.head.ref }}
       - name: Verify whitelist
         run: bash -e -x .github/verifyWhitelist.sh
       - name: test variables
