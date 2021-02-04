@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          depth: 0
+          fetch-depth: 0
       - name: Checkout PR branch
         run: |
           git remote add ${{ github.event.pull_request.user.login }} ${{ github.event.pull_request.head.repo.html_url }}
