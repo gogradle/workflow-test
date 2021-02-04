@@ -6,7 +6,9 @@ else
   BASE="${BASE_REV}"
 fi
 
-CHANGED_FILES=`git diff --name-only $BASE...HEAD`
+echo $HEAD
+
+CHANGED_FILES=`git diff --name-only $BASE...$GITHUB_SHA`
 
 CHANGED_FILE_LIST=($(echo "$CHANGED_FILES" | sed 's/"//g' | sed 's/:/ /g'))
 WHITELIST=($(cat .github/whitelist.txt | sed 's/"//g' | sed 's/:/ /g'))
