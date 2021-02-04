@@ -11,11 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          path: master
-      - uses: actions/checkout@v2
-        with:
-          repository: ${{ github.event.pull_request.repository }}
-          path: ${{ github.event.pull_request.pull_request.head.ref }}
+          depth: 0
+      - name: Checkout PR branch
+	run |
+          git remote add ${{ github.event.pull_request.user.login }} https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
+          git fetch ${{ github.event.pull_request.user.login }}
+          git checkout -b ${{ github.event.pull_request.user.login }}/${{ github.event.pull_request.pull_request.head.ref }}
       - name: Verify whitelist
         run: bash -e -x .github/verifyWhitelist.sh
       - name: test variables

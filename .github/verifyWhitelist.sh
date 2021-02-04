@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -z "${BASE_REV}" ]; then
-  BASE="origin/master"
-else
-  BASE="${BASE_REV}"
-fi
-
-CHANGED_FILES=`git diff --name-only $GITHUB_BASE_REF HEAD`
+CHANGED_FILES=`git diff --name-only origin/master HEAD`
 
 CHANGED_FILE_LIST=($(echo "$CHANGED_FILES" | sed 's/"//g' | sed 's/:/ /g'))
 WHITELIST=($(cat .github/whitelist.txt | sed 's/"//g' | sed 's/:/ /g'))
