@@ -6,12 +6,14 @@ on:
       - "data.json"
 
 jobs:
-  remember-brave-people:
+  remember:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Verify whitelist
-        run: .github/verifyWhitelist.sh
+        run: |
+          chmod +x .github/verifyWhitelist.sh
+          .github/verifyWhitelist.sh
       - name: test variables
         run: |
           echo ${{ env.GITHUB_WORKSPACE }}
