@@ -13,7 +13,7 @@ jobs:
         with:
           depth: 0
       - name: Checkout PR branch
-	run |
+        run: |
           git remote add ${{ github.event.pull_request.user.login }} https://github.com/${{ github.event.pull_request.head.repo.full_name }}.git
           git fetch ${{ github.event.pull_request.user.login }}
           git checkout -b ${{ github.event.pull_request.user.login }}/${{ github.event.pull_request.pull_request.head.ref }}
